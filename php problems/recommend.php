@@ -2,7 +2,7 @@
 This is a test php in CLI
 
 <?php 
-	$file = fopen("usernames1.in", "r");
+	$file = fopen("elimination-100k.in", "r");
 	$input = $argv[1];
 
 	$num = array();
@@ -33,7 +33,7 @@ This is a test php in CLI
 
 	$recommended = $name."".recommend($num);
 
-	echo $recommended;
+	echo "Recommended: ".$recommended."\n";
 	fclose($file);
 
 	function recommend(array $num){
