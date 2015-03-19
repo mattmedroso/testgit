@@ -6,6 +6,7 @@ This is a test php in CLI
 	$input = $argv[1];
 
 	$num = array();
+	$registered = array();
 
 	if(preg_match("/([a-zA-Z]+)(\\d+)/", $input, $matches)) {
 		$name = $matches[1];
@@ -15,11 +16,14 @@ This is a test php in CLI
 		$name = $matches[0];
 		$pin = "";
 	}
+	else
+		$name = $input;
 
 	while(!feof($file)) {
 		$line = trim(fgets($file));
 
 		if(preg_match("/".$name."/i", $line)) {
+			$registered[] = $line;
 			if(preg_match("/(\\d+)/", $line, $matches)) {
 				$num[] = $matches[1];	
 				continue;			
@@ -27,12 +31,16 @@ This is a test php in CLI
 			$num[] = "";
 		}
 	}
-
 	sort($num);
-	var_dump($num);
+	sort($registered);
+	
+	if($num) {
+		echo "Registered: \n".implode("\n", $registered)."\n";
+	}
 
 	$recommended = $name."".recommend($num);
 
+	echo "Input: ".$input."\n";
 	echo "Recommended: ".$recommended."\n";
 	fclose($file);
 
